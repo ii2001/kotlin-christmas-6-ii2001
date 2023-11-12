@@ -49,7 +49,10 @@ class PlannerView {
         }
         return orderItems
     }
+//    fun showEventDetails(result: EventResult) {
+//        // 이벤트 결과 출력
+//    }
     fun showError(errorMessage: String?) {
-        // 에러 메시지 출력
+        println("[ERROR] $errorMessage")
     }
 }
