@@ -53,7 +53,7 @@ class PlannerView {
         println("\n${result.visitDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n")
 
         println("<주문 메뉴>")
-        result.orderMenu.forEach { println("$it ${it.value}개") }
+        result.orderMenu.forEach { println("$it ${it}개") }
 
         println("\n<할인 전 총주문 금액>")
         println("${result.totalBeforeDiscount}원")
@@ -67,7 +67,7 @@ class PlannerView {
 
         println("\n<혜택 내역>")
         if (result.benefits.isNotEmpty()) {
-            result.benefits.forEach { println("$it: -${it.value}원") }
+            result.benefits.forEach { println("$it: -${it}원") }
         } else {
             println("없음")
         }

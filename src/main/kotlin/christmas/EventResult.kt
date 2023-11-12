@@ -8,5 +8,6 @@ data class EventResult(
     val totalAfterDiscount: Int,
     val eventBadge: String,
     val visitDate: Int,
-    val benefits: List<String>
+    val benefits: List<String>,
+    val weekend: String
 )

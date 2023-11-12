@@ -2,7 +2,7 @@ package christmas
 
 class MainController {
     private val plannerView = PlannerView()
-    //private val plannerModel = PlannerModel()
+    private val plannerModel = PlannerModel()
 
     fun run() {
         plannerView.showWelcomeMessage()
