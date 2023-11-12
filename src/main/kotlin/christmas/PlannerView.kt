@@ -34,7 +34,6 @@ class PlannerView {
             try {
                 input.forEach { menuItem ->
                     val (menu, quantity) = menuItem.split("-")
-                    println("$menu {$quantity}개")
                     if (quantity.toIntOrNull() ?: 0 > 0) {
                         orderItems[menu] = quantity.toInt()
                     } else {
@@ -50,10 +49,10 @@ class PlannerView {
     }
     fun showEventDetails(result: EventResult) {
         // 이벤트 결과 출력
-        println("\n${result.visitDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n")
+        println("12월 ${result.visitDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n")
 
         println("<주문 메뉴>")
-        result.orderMenu.forEach { println("$it ${it}개") }
+        result.orderMenu.forEach { println("${it.key} ${it.value}개") }
 
         println("\n<할인 전 총주문 금액>")
         println("${result.totalBeforeDiscount}원")

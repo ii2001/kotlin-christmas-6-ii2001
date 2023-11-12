@@ -1,13 +1,13 @@
 package christmas
 
 data class EventResult(
-    val orderMenu: List<String>,
+    val orderMenu: Map<String,Int>,
     val totalBeforeDiscount: Int,
     val giftMenu: String,
     val totalBenefits: Int,
     val totalAfterDiscount: Int,
     val eventBadge: String,
     val visitDate: Int,
-    val benefits: List<String>,
+    val benefits: Map<String,Int>,
     val weekend: String
 )
