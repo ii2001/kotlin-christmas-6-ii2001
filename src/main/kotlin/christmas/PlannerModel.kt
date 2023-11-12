@@ -25,6 +25,29 @@ class PlannerView {
 
     fun getOrderItems(): Map<String, Int> {
         // 주문 메뉴 및 수량 입력 받기
+        val orderItems = mutableMapOf<String, Int>()
+        println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)\n" +
+                "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1")
+
+        while (true) {
+            println("<주문 메뉴>")
+            val input = Console.readLine() ?: ""
+            if (input.equals("end", ignoreCase = true)) {
+                break
+            }
+
+            try {
+                val (menu, quantity) = input.split("-")
+                if (quantity.toIntOrNull() ?: 0 > 0) {
+                    orderItems[menu] = quantity.toInt()
+                } else {
+                    println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+                }
+            } catch (e: Exception) {
+                println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+            }
+        }
+        return orderItems
     }
     fun showError(errorMessage: String?) {
         // 에러 메시지 출력
