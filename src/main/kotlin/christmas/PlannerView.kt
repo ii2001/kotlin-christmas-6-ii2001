@@ -30,23 +30,23 @@ class PlannerView {
         println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)")
 
         while (true) {
-            val input = Console.readLine() ?: ""
-            if (input.equals("end", ignoreCase = true)) {
-                break
-            }
-
+            val input = Console.readLine().split(",")
             try {
-                val (menu, quantity) = input.split("-")
-                if (quantity.toIntOrNull() ?: 0 > 0) {
-                    orderItems[menu] = quantity.toInt()
-                } else {
-                    println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+                input.forEach { menuItem ->
+                    val (menu, quantity) = menuItem.split("-")
+                    println("$menu {$quantity}개")
+                    if (quantity.toIntOrNull() ?: 0 > 0) {
+                        orderItems[menu] = quantity.toInt()
+                    } else {
+                        throw IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+                    }
                 }
             } catch (e: Exception) {
-                println("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.")
+                println(e.message)
+                continue // 예외가 발생하면 반복문을 계속 실행
             }
+            return orderItems
         }
-        return orderItems
     }
     fun showEventDetails(result: EventResult) {
         // 이벤트 결과 출력
