@@ -10,8 +10,8 @@ class MainController {
         val orderItems = plannerView.getOrderItems()
 
         try {
-            //val result = plannerModel.calculateEventBenefits(visitDate, orderItems)
-            //plannerView.showEventDetails(result)
+            val result = plannerModel.calculateEventBenefits(visitDate, orderItems)
+            plannerView.showEventDetails(result)
         } catch (e: Exception) {
             plannerView.showError(e.message)
         }
