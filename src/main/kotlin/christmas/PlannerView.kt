@@ -27,11 +27,9 @@ class PlannerView {
     fun getOrderItems(): Map<String, Int> {
         // 주문 메뉴 및 수량 입력 받기
         val orderItems = mutableMapOf<String, Int>()
-        println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)\n" +
-                "티본스테이크-1,바비큐립-1,초코케이크-2,제로콜라-1")
+        println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)")
 
         while (true) {
-            println("<주문 메뉴>")
             val input = Console.readLine() ?: ""
             if (input.equals("end", ignoreCase = true)) {
                 break
@@ -50,9 +48,39 @@ class PlannerView {
         }
         return orderItems
     }
-    //    fun showEventDetails(result: EventResult) {
-//        // 이벤트 결과 출력
-//    }
+    fun showEventDetails(result: EventResult) {
+        // 이벤트 결과 출력
+        println("\n${result.visitDate}일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n")
+
+        println("<주문 메뉴>")
+        result.orderMenu.forEach { println("$it ${it.value}개") }
+
+        println("\n<할인 전 총주문 금액>")
+        println("${result.totalBeforeDiscount}원")
+
+        println("\n<증정 메뉴>")
+        if (result.giftMenu.isNotEmpty()){
+            println(result.giftMenu)
+        } else{
+            println("없음")
+        }
+
+        println("\n<혜택 내역>")
+        if (result.benefits.isNotEmpty()) {
+            result.benefits.forEach { println("$it: -${it.value}원") }
+        } else {
+            println("없음")
+        }
+
+        println("\n<총혜택 금액>")
+        println("${result.totalBenefits}원")
+
+        println("\n<할인 후 예상 결제 금액>")
+        println("${result.totalAfterDiscount}원")
+
+        println("\n<12월 이벤트 배지>")
+        println(result.eventBadge)
+    }
     fun showError(errorMessage: String?) {
         println("[ERROR] $errorMessage")
     }

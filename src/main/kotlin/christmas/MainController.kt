@@ -2,7 +2,7 @@ package christmas
 
 class MainController {
     private val plannerView = PlannerView()
-    private val plannerModel = PlannerModel()
+    //private val plannerModel = PlannerModel()
 
     fun run() {
         plannerView.showWelcomeMessage()
@@ -11,7 +11,7 @@ class MainController {
 
         try {
             val result = plannerModel.calculateEventBenefits(visitDate, orderItems)
-            //plannerView.showEventDetails(result)
+            plannerView.showEventDetails(result)
         } catch (e: Exception) {
             plannerView.showError(e.message)
         }
