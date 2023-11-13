@@ -66,7 +66,7 @@ class PlannerView {
 
         println("\n<혜택 내역>")
         if (result.benefits.isNotEmpty()) {
-            result.benefits.forEach { println("$it: -${it}원") }
+            result.benefits.forEach { println("${it.key}: -${it.value}원") }
         } else {
             println("없음")
         }
@@ -75,8 +75,11 @@ class PlannerView {
         println("${result.totalBenefits}원")
 
         println("\n<할인 후 예상 결제 금액>")
-        println("${result.totalAfterDiscount}원")
-
+        if (result.giftMenu!="없음"){
+            println("${result.totalAfterDiscount+25000}원")
+        } else{
+            println("${result.totalAfterDiscount}원")
+        }
         println("\n<12월 이벤트 배지>")
         println(result.eventBadge)
     }

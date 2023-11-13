@@ -3,15 +3,15 @@ package christmas
 class PlannerModel {
     fun calculateEventBenefits(visitDate: Int, orderItems: Map<String, Int>): EventResult {
         val totalBeforeDiscount = calculateTotalOrderAmount(orderItems)
-        val discountAmount = calculateDiscountAmount(visitDate, orderItems)
         val giftMenu = calculateGiftMenu(totalBeforeDiscount)
         val benefits = calculateBenefits(visitDate, orderItems)
-
-        val totalBenefits = discountAmount.values.sum()
+        if (giftMenu!="없음"){
+            benefits["증정 이벤트"]=25000
+        }
+        val totalBenefits = calculateDiscountAmount(benefits)
         val totalAfterDiscount = totalBeforeDiscount - totalBenefits
-        val eventBadge = calculateEventBadge(totalBenefits)
+        val eventBadge = calculateEventBadge(totalBeforeDiscount)
         val weekend= calculateWeekend(visitDate)
-
         return EventResult(
             visitDate = visitDate,
             orderMenu = orderItems,
@@ -48,10 +48,8 @@ class PlannerModel {
         return allMenus.find { it.name == menuName }
     }
 
-    private fun calculateDiscountAmount(visitDate: Int, orderItems: Map<String, Int>): Map<String, Int> {
-        // 이벤트 별로 할인 계산 로직을 추가하세요.
-        // 예시로 모든 메뉴에 대해 1,000원 할인을 적용한 것입니다.
-        return orderItems.mapValues { (_, quantity) -> quantity * 1000 }
+    private fun calculateDiscountAmount(benefits: Map<String,Int>): Int {
+        return benefits.values.sumBy{it}
     }
     private fun christmasCalculateDiscountAmount(visitDate: Int): Int {
         if (visitDate>25){
@@ -61,7 +59,7 @@ class PlannerModel {
     }
 
     private fun calculateGiftMenu(totalBeforeDiscount: Int): String {
-        return if (totalBeforeDiscount >= 120000) "샴페인" else "없음"
+        return if (totalBeforeDiscount >= 120000) "샴페인 1개" else "없음"
     }
     private fun calculateMainDishDiscount(orderItems: Map<String, Int>, mainDishes: List<Menu>): Int {
         val mainDishCount = orderItems.filter { entry ->
@@ -92,18 +90,20 @@ class PlannerModel {
             result["크리스마스 디데이 할인"]=christmasCalculateDiscountAmount(visitDate)
         }
         val weekendDiscountAmount = weekendDiscount(visitDate, orderItems, mainDishes, desserts)
-        result[calculateWeekend(visitDate)] = weekendDiscountAmount
+        if (weekendDiscountAmount!=0){
+            result[calculateWeekend(visitDate)] = weekendDiscountAmount
+        }
         if (visitDate%7==3||visitDate==25){
-            result["특별 할인"]=-1000
+            result["특별 할인"]=1000
         }
         return result
     }
 
-    private fun calculateEventBadge(totalBenefits: Int): String {
+    private fun calculateEventBadge(totalBeforeDiscount: Int): String {
         return when {
-            totalBenefits >= 5000 -> "별"
-            totalBenefits >= 10000 -> "트리"
-            totalBenefits >= 20000 -> "산타"
+            totalBeforeDiscount >= 20000 -> "산타"
+            totalBeforeDiscount >= 10000 -> "트리"
+            totalBeforeDiscount >= 5000 -> "별"
             else -> "없음"
         }
     }
