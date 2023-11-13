@@ -3,7 +3,7 @@
 ## Output Interface
 - [x] 환영 메세지 출력
 - [x] 이벤트 결과 출력
-- [ ] 에러 메세지 출력
+- [x] 에러 메세지 출력
 
 ## Input Interface
 - [x] 날짜 입력 받기
